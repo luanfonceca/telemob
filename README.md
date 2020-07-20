@@ -9,7 +9,7 @@ Para saber a ideia do projeto, leia: [Telemob no Wiki do Garoa Hacker Clube](htt
 ```
 git clone https://github.com/garoa/telemob.git
 cd telemob
-pip install -r requirements
+pip install -r requirements.txt
 python manage.py migrate
 ```
 
