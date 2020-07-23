@@ -5,3 +5,4 @@
 mng.sh
 .vagrant/
 staticfiles/
+.DS_Store

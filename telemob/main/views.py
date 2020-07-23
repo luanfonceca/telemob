@@ -1,5 +1,5 @@
-from django.db.models import Count
-from django.template import RequestContext
+
+from django.db.models import Count, Sum
 from localflavor.br.br_states import STATE_CHOICES
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib import messages
@@ -30,11 +30,13 @@ def politician_list(request, campaign_id, uf=None):
 
     politician_list = politician_list.annotate(
         contacts=Count('contact')).order_by('contacts', 'parliamentary_name')
+    total_contacts = politician_list.aggregate(total=Sum('contacts'))['total']
 
     return render(
         request,
         'politician_list.html', {
             'politician_list': politician_list,
+            'total_contacts': total_contacts,
             'campaign': campaign,
             'uf_list': STATE_CHOICES
         })

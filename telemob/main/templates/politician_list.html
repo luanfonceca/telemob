@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
+
 {% load static %}
+
 {% block content %}
-<div class="starter-template text-center">
+<div>
     {% if messages %}
         <div class="messages">
             {% for message in messages %}
@@ -21,7 +23,10 @@
             <tr>
                 <th class="text-right col-sm-1">Partido</th>
                 <th class="text-left col-sm-10">Nome ou apelido</th>
-                <th id="count-contacts" class="text-right col-sm-1">Contatos reportados</th>
+                <th id="count-contacts" class="text-right col-sm-1">
+                    {{ total_contacts }}
+                    Contato{{ total_contacts|pluralize }} reportado{{ total_contacts|pluralize }}
+                </th>
             </tr>
         </thead>
         <tbody>

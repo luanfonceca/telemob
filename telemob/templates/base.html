@@ -1,6 +1,7 @@
 {% load static %}
+
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="h-100">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,7 +13,7 @@
     <title>{% block title %}Telemob{% endblock title %}</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="{% static 'css/project.css' %}" rel="stylesheet">
@@ -26,41 +27,53 @@
     {% block css %}{% endblock css %}
   </head>
 
-  <body>
-
-    <div class="navbar navbar-inverse navbar-fixed-top">
-     <div class="navbar-inner">
-       <div class="container">
-          <div class="navbar-header">
-            <a class="brand" href="/"> <img src="{% static 'img/telemob-logo-fundo-preto.png' %}" width="300px"></a>
-          </div>
-          <div class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-              <li><a href="{% url 'about' %}">Sobre</a></li>
+  <body class="d-flex flex-column h-100">
+    <header>
+      <nav class="navbar navbar-expand-md navbar-dark bg-black fixed-top">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="{% url 'index' %}">
+            <img src="{% static 'img/telemob-logo-fundo-preto.png' %}" width="150px" />
+          </a>
+          <div  class="d-flex">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="{% url 'about' %}">Sobre</a>
+              </li>
             </ul>
           </div>
-       </div>
-     </div>
-   </div>
+        </div>
+      </nav>
+    </header>
 
-    <div class="container">
-      {% block content %}{% endblock content %}
+    <main class="flex-shrink-0">
+      <div class="container py-5">
+        {% block content %}{% endblock content %}
+      </div>
+    </main><!-- /.container -->
 
-    </div><!-- /.container -->
+    <footer class="footer mt-auto py-3 bg-light">
+      <div class="container">
+        <span class="text-muted">
+          Telemob é um sistema para ajudar a sociedade civil a pressionar seus deputados e senadores no Congresso Nacional.
+          <br />
+          Sua motivação inicial é facilitar a pressão popular pela aprovação do Marco Civil da Internet, otimizando e distribuindo a pressão entre todos os congressistas.
+        </span>
+      </div>
+    </footer>
 
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 
     {% if GTM_CONTAINER %}
-    <!-- Google Tag Manager -->
-    <noscript><iframe src="//www.googletagmanager.com/ns.html?id={{ GTM_CONTAINER }}"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','{{ GTM_CONTAINER }}');</script>
-    <!-- End Google Tag Manager -->
+      <!-- Google Tag Manager -->
+      <noscript><iframe src="//www.googletagmanager.com/ns.html?id={{ GTM_CONTAINER }}"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+      <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','{{ GTM_CONTAINER }}');</script>
+      <!-- End Google Tag Manager -->
     {% endif %}
 
     {% block js %}{% endblock js %}
