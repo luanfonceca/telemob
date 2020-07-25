@@ -40,6 +40,10 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'captcha',
+    'widget_tweaks',
+    'pwa',
+    'push_redirect',
+
     'telemob.main',
 )
 
@@ -47,6 +51,7 @@ MIDDLEWARE = (
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'telemob.main.middleware.TurbolinksMiddleware',
+    'push_redirect.middleware.Http2ServerPushRedirectMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -137,6 +142,30 @@ RECAPTCHA_PRIVATE_KEY = config(
     'RECAPTCHA_PRIVATE_KEY',
     default='1234567897132123'
 )
+
+PWA_APP_NAME = 'Telemob - Salve Natal'
+PWA_APP_DESCRIPTION = "My app description"
+PWA_APP_THEME_COLOR = '#0A0302'
+PWA_APP_BACKGROUND_COLOR = '#ffffff'
+PWA_APP_DISPLAY = 'standalone'
+PWA_APP_SCOPE = '/'
+PWA_APP_ORIENTATION = 'any'
+PWA_APP_START_URL = '/'
+PWA_APP_STATUS_BAR_COLOR = 'default'
+PWA_APP_ICONS = [{
+    'src': '/static/img/ico.png',
+    'sizes': '160x160'
+}]
+PWA_APP_ICONS_APPLE = [{
+    'src': '/static/img/ico.png',
+    'sizes': '160x160'
+}]
+PWA_APP_SPLASH_SCREEN = [{
+    'src': '/static/images/icons/splash-640x1136.png',
+    'media': '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)'
+}]
+PWA_APP_DIR = 'ltr'
+PWA_APP_LANG = 'pt-br'
 
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

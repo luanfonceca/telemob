@@ -6,3 +6,6 @@ psycopg2-binary==2.8.5
 dj-static==0.0.6
 python-decouple==3.3
 django-recaptcha==2.0.6
+django-push-redirect==1.1.0
+django-widget-tweaks==1.4.8
+django-pwa==1.0.10

@@ -17,7 +17,7 @@ class ContactForm(forms.ModelForm):
         fields = ('contacted_by', 'result', )
 
     def clean_result(self):
-        #FIXME: os ranges e números abaixo dependem de RESULT_CHOICES em models.py
+        #FIXME: os ranges e números abaixo DEBUG_PROPAGATE_EXCEPTIONS = Falsendem de RESULT_CHOICES em models.py
         contacted_by = self.cleaned_data.get('contacted_by')
         try:
             result = int(self.cleaned_data.get('result'))

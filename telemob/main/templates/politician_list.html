@@ -4,15 +4,6 @@
 
 {% block content %}
 <div>
-    {% if messages %}
-        <div class="messages">
-            {% for message in messages %}
-            <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
-            {% endfor %}
-        </div>
-    <h3>Escolha mais um deputado para você contatar</h3>
-    {% endif %}
-
     {% if not messages %}
     <h3>Passo ➀➋➂ - Escolha o deputado para você contatar</h3>
     {% endif %}

@@ -49,14 +49,18 @@ def report_contact(request, campaign_id, politician_id):
     contact = Contact(campaign=campaign, politician=politician)
     form = ContactForm(request.POST or None, instance=contact)
 
-    if form.is_valid():
-        form.save()
-        msg = ('Seu contato foi registrado, grato por participar! '
-               'Se tiver tempo, aproveite para contatar outro '
-               'parlamentar agora mesmo.')
-        messages.success(request, msg)
-        return redirect('politician_list', campaign_id=campaign.pk,
-            uf=politician.uf)
+    if request.POST:
+        if form.is_valid():
+            form.save()
+            msg = ('Seu contato foi registrado, grato por participar! '
+                   'Se tiver tempo, aproveite para contatar outro '
+                   'parlamentar agora mesmo.')
+            messages.success(request, msg)
+            return redirect('politician_list', campaign_id=campaign.pk, uf=politician.uf)
+        else:
+            msg = ('Alguma coisa deu errado, '
+                   'por favor veja se o formulário esta preenchido corretamente.')
+            messages.error(request, msg)
 
     return render(
         request,
