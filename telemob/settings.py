@@ -102,6 +102,9 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
+LANGUAGES = [
+    ('pt-br', 'Português'),
+]
 LANGUAGE_CODE = 'pt-br'
 
 TIME_ZONE = 'America/Sao_Paulo'
