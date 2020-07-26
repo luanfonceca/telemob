@@ -80,7 +80,7 @@ class Politician(models.Model):
         verbose_name = 'Político'
 
     def __str__(self):
-        return self.name
+        return self.name or self.parliamentary_name
 
 
 class Contact(models.Model):
