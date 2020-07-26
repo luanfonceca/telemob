@@ -170,6 +170,8 @@ PWA_APP_SPLASH_SCREEN = [{
 PWA_APP_DIR = 'ltr'
 PWA_APP_LANG = 'pt-br'
 
+TELEGRAM_PRICE = config('TELEGRAM_PRICE', default=8.54, cast=float)
+
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
     CACHES = {

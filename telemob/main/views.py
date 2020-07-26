@@ -3,6 +3,7 @@ from django.db.models import Count, Sum
 from localflavor.br.br_states import STATE_CHOICES
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib import messages
+from django.conf import settings
 
 from .forms import ContactForm
 from .models import Campaign, Politician, Contact
@@ -52,8 +53,8 @@ def report_contact(request, campaign_id, politician_id):
     if request.POST:
         if form.is_valid():
             form.save()
-            msg = ('Seu contato foi registrado, grato por participar! '
-                   'Se tiver tempo, aproveite para contatar outro '
+            msg = ('Seu contato foi registrado! '
+                   'Se tiver tempo, aproveite para contatar outra ou outro '
                    'parlamentar agora mesmo.')
             messages.success(request, msg)
             return redirect('politician_list', campaign_id=campaign.pk, uf=politician.uf)
@@ -67,5 +68,6 @@ def report_contact(request, campaign_id, politician_id):
         'contact_add.html', {
             'form': form,
             'politician': politician,
-            'campaign': campaign
+            'campaign': campaign,
+            'telegram_price': settings.TELEGRAM_PRICE,
         })
