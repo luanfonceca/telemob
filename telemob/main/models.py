@@ -65,7 +65,7 @@ class Politician(models.Model):
 
     name = models.CharField('Nome', max_length=150)
     parliamentary_name = models.CharField('Nome Parlamentar', max_length=150)
-    political_party = models.CharField('Partido', choices=PARTY_CHOICES, max_length=10)
+    political_party = models.CharField('Partido', choices=PARTY_CHOICES, max_length=20)
     uf = models.CharField('UF', choices=STATE_CHOICES, max_length=10)
     category = models.CharField('Categoria', choices=CATEGORY_CHOICES, max_length=20)
     annex = models.IntegerField('Anexo', blank=True, null=True)
