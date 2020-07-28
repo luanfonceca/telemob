@@ -3,29 +3,29 @@
 {% load static %}
 
 {% block content %}
-	<div id="onboarding" class="p-3 h-100 d-flex align-items-center">
-		<div>
-			<div class="text-center">
-				<h1 class="mb-3">Escolha seu estado</h1>
-				<h5>
-	        Informando seu doíicílio eleitoral, poderemos listar todas as deputadas e deputados.
-	      </h5>
-			</div>
-				
-			<div class="pt-5 px-3">
-				<div class="d-flex justify-content-between align-items-center">
-					<div>
-						<img src="{% static 'img/icons/onboarding-part-1.svg' %}">
-					</div>
-					<a class="btn btn-white" href="{% url 'onboarding-part-2' %}">
-						<img src="{% static 'img/icons/arrow-right.svg' %}">
-					</a>
-				</div>
+  <div id="onboarding" class="p-3 h-100 d-flex align-items-center">
+    <div class="w-100">
+      <div class="text-center">
+        <h1 class="mb-3">Escolha seu estado</h1>
+        <h5>
+          Informando seu doíicílio eleitoral, poderemos listar todas as deputadas e deputados.
+        </h5>
+      </div>
 
-				<div class="pt-5 text-center">
-					<a class="link" href="{% url 'choose-state' %}"><h6>Pular Intro</h6></a>
-				</div>
-			</div>
-		</div>
-	</div>
+      <div class="pt-5 px-3">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <img src="{% static 'img/icons/onboarding-part-1.svg' %}">
+          </div>
+          <a class="btn btn-white" href="{% url 'onboarding-part-2' %}">
+            <img src="{% static 'img/icons/arrow-right.svg' %}">
+          </a>
+        </div>
+
+        <div class="pt-5 text-center">
+          <a class="link" href="{% url 'choose-state' %}"><h6>Pular Intro</h6></a>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}
