@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div>
+  <div class="card">
+    <div class="d-flex justify-content-center">
+      <div class="connecting-line visited"></div>
+      <div class="connecting-line visited"></div>
+    </div>
+    <ul class="wizzard px-5 pb-3 list-group list-group-horizontal d-flex justify-content-between">
+      <li class="list-group-item wizzard-visited">
+        <img src="{% static 'img/icons/done.svg' %}">
+      </li>
+      <li class="list-group-item wizzard-visited">
+        <img src="{% static 'img/icons/done.svg' %}">
+      </li>
+      <li class="list-group-item wizzard-visited">
+        <img src="{% static 'img/icons/done.svg' %}">
+      </li>
+    </ul>
+
+    <span class="title">Registro de contato</span>
+    <span class="subtitle text-danger">
+      * Reporte apenas contatos efetivados ou tentativas de ligação que você realmente fez.
+    </span>
+    <span class="subtitle pt-3">
+      Informe como entrou em contato com o parlamentar e o que aconteceu.
+    </span>
+
+    <form class="pt-3"> 
+      <div>
+        <label for="inputPassword5" class="form-label">Contato via</label>
+        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+          <option value="1">Telefonar</option>
+          <option value="1">Telegrama</option>
+          <option value="2">Fax</option>
+          <option value="3">E-mail</option>
+        </select>
+      </div>
+      <div>
+        <label for="inputPassword5" class="form-label">Resultado</label>
+        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+          <option value="1">Falei com a Deputada ou Deputado</option>
+          <option value="1">Telegrama</option>
+          <option value="2">Fax</option>
+          <option value="3">E-mail</option>
+        </select>
+      </div>
+
+      <div class="pt-3">
+        <a href="{% url 'report-contact-success' %}" class="btn btn-block btn-green">
+          Registrar Contat
+        </a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock content %}

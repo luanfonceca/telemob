@@ -1,29 +1,68 @@
 {% extends 'base.html' %}
-{% load rows_columns %}
+
+{% load static %}
 
 {% block content %}
-<div>
-    <h1 class="text-center">{{ campaign.name }}</h1>
+  <div class="no-gutters">
+    <div class="campaign">
+      <h4 class="text-white">#SALVENATAL: Por um Plano Diretor melhor para nossa cidade</h4>
+      <h5 class="text-white">
+        A proposta da Prefeitura de Natal para revisão de seu Plano Diretor pretende transformar radicalmente nossas vidas. Transformar para pior. 
+      </h5>
 
-    <p class="lead">{{ campaign.description }}</p>
+      <a class="btn btn-purple" href="{% url 'onboarding-part-1' %}">Participar</a>
+    </div>
+  </div>
 
-    <p class="lead"><b>{{ count_contacts }}</b> contatos foram reportados pelos eleitores nesta campanha até o momento.</p>
+  <div class="card contacts">
+    <span class="title">Contatos reportados</span>
+    <span class="total">540</span>
+  </div>
 
-    <h3>Passo ➊➁➂ - Escolha o estado do seu domícilio eleitoral</h3>
+  <div class="card">
+    <span class="title">Como ajudar</span>
+    <span class="subtitle">
+      O Telemob informa os contatos das deputadas e deputados, mas não envia a mensagem automaticamente
+    </span>
+    <ul class="list-group pt-3">
+      <li class="list-group-item d-flex p-3">
+        <img src="{% static 'img/icons/insert_emoticon.svg' %}">
+        <div class="flex-column pl-3">
+          <div class="title pb-0">Telefonar</div>
+          <div class="subtitle">Pressão interagindo por telefone é a mais forte.</div>
+        </div>
+      </li>
+      <li class="list-group-item d-flex p-3">
+        <img src="{% static 'img/icons/insert_emoticon.svg' %}">
+        <div class="flex-column pl-3">
+          <div class="title pb-0">Telegrama</div>
+          <div class="subtitle">Você envia online e a carteira ou carteiro entrega em mãos.</div>
+        </div>
+      </li>
+      <li class="list-group-item d-flex p-3">
+        <img src="{% static 'img/icons/insert_emoticon.svg' %}">
+        <div class="flex-column pl-3">
+          <div class="title pb-0">Fax</div>
+          <div class="subtitle">Fax tem mais chance de ser lido do que e-mail.</div>
+        </div>
+      </li>
+      <li class="list-group-item d-flex p-3">
+        <img src="{% static 'img/icons/insert_emoticon.svg' %}">
+        <div class="flex-column pl-3">
+          <div class="title pb-0">E-mail</div>
+          <div class="subtitle">E-mail tem mais chance de ser ignorado.</div>
+        </div>
+      </li>
+    </ul>
 
-    <table class="table table-bordered table-condensed">
-        {% for row in uf_list|columns:4 %}
-            <tr>
-                {% for uf, estado in row %}
-                    <td>
-                        <a href="{% url 'politician_list' campaign.pk uf %}">
-                            {{ estado }}
-                        </a>
-                    </td>
-                {% endfor %}
-             </tr>
-        {% endfor %}
-    </table>
-</div>
+    <a href="{% url 'onboarding-part-1' %}" class="btn btn-purple mt-4 btn-block">Quero fazer minha parte!</a>
+  </div>
 
+  <div class="card">
+    <span class="title">Sobre o Telemob</span>
+    <span class="subtitle">
+      Telemob é um sistema para ajudar a sociedade civil a pressionar deputadas, deputados, senadoras e senadores no Congresso Nacional.
+    </span>
+    <a href="{% url 'about' %}" class="btn btn-green mt-4">Conheça mais</a>
+  </div>
 {% endblock %}

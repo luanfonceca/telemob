@@ -3,35 +3,36 @@
 {% load static %}
 
 {% block content %}
-<div>
-    {% if not messages %}
-    <h3>Passo ➀➋➂ - Escolha a deputada ou deputado para você contatar</h3>
-    {% endif %}
+  <h3 class="display-6">Passo ➀➋➂ - Escolha a deputada ou deputado para você contatar</h3>
 
-    <p><b>Atenção:</b> Para melhor distribuir a pressão, dê preferência a primeira ou primeiro da lista.</p>
-    <table class="table table-striped table-bordered table-condensed table-centered">
+  <p><b>Atenção:</b> Para melhor distribuir a pressão, dê preferência a primeira ou primeiro da lista.</p>
+  <div class="row">
+    <div class="col-lg-6 offset-lg-3 col-md-12 align-self-center">
+      <table class="table table-striped table-bordered table-condensed">
         <thead>
-            <tr>
-                <th class="text-right col-sm-1">Partido</th>
-                <th class="text-left col-sm-10">Nome ou apelido</th>
-                <th id="count-contacts" class="text-right col-sm-1">
-                    {{ total_contacts }}
-                    Contato{{ total_contacts|pluralize }} reportado{{ total_contacts|pluralize }}
-                </th>
-            </tr>
+          <tr>
+            <th class="text-right col-1">Partido</th>
+            <th class="text-left col-10">Nome ou apelido</th>
+            <th class="text-right col-1">
+                {{ total_contacts }}
+                Contato{{ total_contacts|pluralize }} reportado{{ total_contacts|pluralize }}
+            </th>
+          </tr>
         </thead>
         <tbody>
-        {% for politician in politician_list %}
+          {% for politician in politician_list %}
             <tr>
-                <td class="text-right">{{ politician.political_party }}</td>
-                <td class="text-left"><a href="{% url 'report_contact' campaign.id politician.id %}">{{ politician.parliamentary_name }}</a></td>
-                <td class="text-right pol-contacts">{{ politician.contacts }}</td>
+              <td class="text-right">{{ politician.political_party }}</td>
+              <td class="text-left position-relative">
+                <a href="{% url 'report_contact' campaign.id politician.id %}" class="stretched-link">
+                  {{ politician }}
+                </a>
+              </td>
+              <td class="text-right pol-contacts">{{ politician.contacts }}</td>
             </tr>
-        {% endfor %}
+          {% endfor %}
         </tbody>
-    </table>
-</div>
+      </table>
+    </div>
+  </div>
 {% endblock %}
-{% block js %}
-<script src="{% static 'js/politician.js' %}"></script>
-{% endblock js %}

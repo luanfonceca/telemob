@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+  <div id="onboarding" class="p-3 h-100 d-flex align-items-center">
+    <div>
+      <div class="text-center">
+        <h1 class="mb-3">Obrigada!</h1>
+        <h5>
+          Contato reportado com sucesso! <br />
+          Se possível escolha outra deputada ou deputadoe e nos ajude ainda mais.
+        </h5>
+      </div>
+      
+      </div>
+    </div>
+  </div>
+
+  <div class="card contacts">
+    <span class="title">Contatos reportados</span>
+    <span class="total">540</span>
+
+    <div class="pt-3">
+      <a href="{% url 'choose-politician' %}" class="btn btn-block btn-purple">
+        Quero ajudar mais
+      </a>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+  <div id="onboarding" class="p-3 h-100 d-flex align-items-center">
+    <div>
+      <div class="text-center">
+        <h1 class="mb-3">Agora é com você!</h1>
+        <h5>
+          Escolha uma forma de contato, leia os nossos argumentos e envie a mensagem você mesmo.
+        </h5>
+      </div>
+        
+      <div class="pt-5 px-3">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <img src="{% static 'img/icons/onboarding-part-3.svg' %}">
+          </div>
+          <a class="btn btn-white" href="{% url 'choose-state' %}">
+            <img src="{% static 'img/icons/arrow-right.svg' %}">
+          </a>
+        </div>
+
+        <div class="pt-5 text-center">
+          <a class="link" href="{% url 'choose-state' %}"><h6>Pular Intro</h6></a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

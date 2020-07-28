@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div>
+  <div class="card">
+    <div class="d-flex justify-content-center">
+      <div class="connecting-line"></div>
+      <div class="connecting-line"></div>
+    </div>
+    <ul class="wizzard px-5 pb-3 list-group list-group-horizontal d-flex justify-content-between">
+      <li class="list-group-item wizzard-active">1</li>
+      <li class="list-group-item">2</li>
+      <li class="list-group-item">3</li>
+    </ul>
+
+    <span class="title">Escolha seu estado</span>
+    <span class="subtitle">
+      Informando seu doíicílio eleitoral, poderemos listar todas as deputadas e deputados.
+    </span>
+
+    <form class="pt-3">
+      <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+        <option>Acre</option>
+        <option value="1">One</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+      </select>
+      <a href="{% url 'choose-politician' %}" class="btn btn-block btn-purple">Escolher</a>
+    </form>
+  </div>
+</div>
+{% endblock content %}
