@@ -10,7 +10,9 @@
     </div>
     <ul class="wizzard px-5 pb-3 list-group list-group-horizontal d-flex justify-content-between">
       <li class="list-group-item wizzard-visited">
-        <img src="{% static 'img/icons/done.svg' %}">
+        <a href="{% url 'choose-state' %}" class="stretched-link">
+          <img src="{% static 'img/icons/done.svg' %}">
+        </a>
       </li>
       <li class="list-group-item wizzard-active">2</li>
       <li class="list-group-item">3</li>
@@ -22,81 +24,25 @@
     </span>
 
     <ul class="list-group pt-3">
-      <li class="list-group-item d-flex p-3">
-        <img src="{% static 'img/icons/insert_emoticon.svg' %}">
-        <div class="flex-column flex-grow-1 pl-3">
-          <a href="{% url 'contact-politician' %}" class="title pb-0 stretched-link">Cosmin Negoita</a>
-          <div class="subtitle">PMDB</div>
-        </div>
-        <div>
-          <div class="badge-contact-wrap">
-            <span class="badge rounded-pill badge-contact d-flex">
-              <img src="{% static 'img/icons/contact.svg' %}">
-              <span class="number">0</span>
-            </span>
+      {% for politician in politician_list %}
+        <li class="list-group-item d-flex p-3">
+          <img src="{% static 'img/icons/insert_emoticon.svg' %}">
+          <div class="flex-column flex-grow-1 pl-3">
+            <a href="{% url 'contact-politician' state=state politician_id=politician.id %}" class="title pb-0 stretched-link">
+              {{ politician }}
+            </a>
+            <div class="subtitle">{{ politician.political_party }}</div>
           </div>
-        </div>
-      </li>
-      <li class="list-group-item d-flex p-3">
-        <img src="{% static 'img/icons/insert_emoticon.svg' %}">
-        <div class="flex-column flex-grow-1 pl-3">
-          <a href="{% url 'contact-politician' %}" class="title pb-0 stretched-link">Cosmin Negoita</a>
-          <div class="subtitle">PMDB</div>
-        </div>
-        <div>
-          <div class="badge-contact-wrap">
-            <span class="badge rounded-pill badge-contact d-flex">
-              <img src="{% static 'img/icons/contact.svg' %}">
-              <span class="number">0</span>
-            </span>
+          <div>
+            <div class="badge-contact-wrap">
+              <span class="badge rounded-pill badge-contact d-flex">
+                <img src="{% static 'img/icons/contact.svg' %}">
+                <span class="number">{{ politician.contacts }}</span>
+              </span>
+            </div>
           </div>
-        </div>
-      </li>
-      <li class="list-group-item d-flex p-3">
-        <img src="{% static 'img/icons/insert_emoticon.svg' %}">
-        <div class="flex-column flex-grow-1 pl-3">
-          <a href="{% url 'contact-politician' %}" class="title pb-0 stretched-link">Cosmin Negoita</a>
-          <div class="subtitle">PMDB</div>
-        </div>
-        <div>
-          <div class="badge-contact-wrap">
-            <span class="badge rounded-pill badge-contact d-flex">
-              <img src="{% static 'img/icons/contact.svg' %}">
-              <span class="number">12</span>
-            </span>
-          </div>
-        </div>
-      </li>
-      <li class="list-group-item d-flex p-3">
-        <img src="{% static 'img/icons/insert_emoticon.svg' %}">
-        <div class="flex-column flex-grow-1 pl-3">
-          <a href="{% url 'contact-politician' %}" class="title pb-0 stretched-link">Cosmin Negoita</a>
-          <div class="subtitle">PMDB</div>
-        </div>
-        <div>
-          <div class="badge-contact-wrap">
-            <span class="badge rounded-pill badge-contact d-flex">
-              <img src="{% static 'img/icons/contact.svg' %}">
-              <span class="number">18</span>
-            </span>
-          </div>
-        </div>
-      </li>
-      <li class="list-group-item d-flex p-3">
-        <img src="{% static 'img/icons/insert_emoticon.svg' %}">
-        <div class="flex-column flex-grow-1 pl-3">
-          <a href="{% url 'contact-politician' %}" class="title pb-0 stretched-link">Cosmin Negoita</a>
-          <div class="subtitle">PMDB</div>
-        </div>
-        <div>
-          <div class="badge-contact-wrap">
-            <span class="badge rounded-pill badge-contact d-flex">
-              <img src="{% static 'img/icons/contact.svg' %}">
-              <span class="number">343</span>
-            </span>
-          </div>
-        </div>
-      </li>
+        </li>  
+      {% endfor %}
     </ul>
   </div>
 {% endblock content %}

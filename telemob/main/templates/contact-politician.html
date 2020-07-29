@@ -10,15 +10,19 @@
     </div>
     <ul class="wizzard px-5 pb-3 list-group list-group-horizontal d-flex justify-content-between">
       <li class="list-group-item wizzard-visited">
-        <img src="{% static 'img/icons/done.svg' %}">
+        <a href="{% url 'choose-state' %}" class="stretched-link">
+          <img src="{% static 'img/icons/done.svg' %}">
+        </a>
       </li>
       <li class="list-group-item wizzard-visited">
-        <img src="{% static 'img/icons/done.svg' %}">
+        <a href="{% url 'choose-politician' state %}" class="stretched-link">
+          <img src="{% static 'img/icons/done.svg' %}">
+        </a>
       </li>
       <li class="list-group-item wizzard-active">3</li>
     </ul>
 
-    <div class="title">Contatar: Cosmin Negoita</div>
+    <div class="title">Contatar: {{ politician }}</div>
     <div class="subtitle">
       Escolha uma forma de contato e envie a mensagem você mesmo.
     </div>
@@ -69,14 +73,14 @@
       <li class="list-group-item d-flex p-3">
         <img src="{% static 'img/icons/insert_emoticon.svg' %}">
         <div class="flex-column flex-grow-1 pl-3">
-          <div class="title pb-0">Cosmin Negoita</div>
-          <div class="subtitle">PMDB</div>
+          <div class="title pb-0">{{ politician }}</div>
+          <div class="subtitle">{{ politician.political_party }}</div>
         </div>
         <div>
           <div class="badge-contact-wrap">
             <span class="badge rounded-pill badge-contact d-flex">
               <img src="{% static 'img/icons/contact.svg' %}">
-              <span class="number">0</span>
+              <span class="number">{{ politician.contacts }}</span>
             </span>
           </div>
         </div>
@@ -85,17 +89,17 @@
         <div class="row">
           <div class="col">
             <div class="title pb-1">Telefone</div>
-            <div class="subtitle">0-xx-61-3215-5417</div>
+            <div class="subtitle">{{ politician.pretty_phone }}</div>
           </div>
           <div class="col">
             <div class="title pb-1">Fax</div>
-            <div class="subtitle">0-xx-61-3215-2417</div>
+            <div class="subtitle">{{ politician.pretty_fax }}</div>
           </div>
         </div>
         <div class="row pt-3">
           <div class="col">
             <div class="title pb-1">E-mail</div>
-            <div class="subtitle">dep.benesleocadio@camara.leg.br</div>
+            <div class="subtitle">{{ politician.email }}</div>
           </div>
         </div>
 
@@ -103,10 +107,10 @@
           <div class="col">
             <div class="title pb-1">Endereço</div>
             <div class="subtitle">
-              Deputado(a) Cosmin Negoita<br />
+              Deputado(a) {{ politician }}<br />
               Câmara dos Deputados<br />
-              Edifício Anexo 4, gabinete 417<br />
-              Brasília - DF - CEP 70160-900<br />
+              Edifício Anexo {{ politician.annex }}, gabinete {{ politician.chamber }}<br />
+              Brasília - DF - CEP 70160-900
             </div>
           </div>
         </div>
@@ -118,37 +122,29 @@
     <div class="title">O que falar ao telefone</div>
 
     <ul class="list-group">
-      <li class="list-group-item d-flex p-3">
-        <div class="flex-column">
-          <div class="title pb-0">Argumento #1</div>
-          <div class="subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-        </div>
-      </li>
-      <li class="list-group-item d-flex p-3">
-        <div class="flex-column">
-          <div class="title pb-0">Argumento #2</div>
-          <div class="subtitle">Donec semper tincidunt massa, in tincidunt nisi fermentum sed.</div>
-        </div>
-      </li>
-      <li class="list-group-item d-flex p-3">
-        <div class="flex-column">
-          <div class="title pb-0">Argumento #3</div>
-          <div class="subtitle">Maecenas vitae pharetra massa. Nullam non facilisis mauris.</div>
-        </div>
-      </li>
+      {% for argument in campaign.argument_set.all %}
+        <li class="list-group-item d-flex p-3">
+          <div class="flex-column">
+            <div class="title pb-0">Argumento #{{ forloop.counter }}</div>
+            <div class="subtitle">{{ argument }}</div>
+          </div>
+        </li>
+      {% endfor %}
     </ul>
 
     <div class="row pt-3">
       <div class="col">
-        <a href="{% url 'choose-politician' %}" class="btn btn-block btn-purple">Ligar agora</a>
+        <a href="#" class="btn btn-block btn-purple">Ligar agora</a>
       </div>
       <div class="col">
-        <a href="{% url 'choose-politician' %}" class="btn btn-block btn-purple">Enviar E-mail</a>
+        <a href="#" class="btn btn-block btn-purple">Enviar E-mail</a>
       </div>
     </div>
   </div>
 
   <div class="pt-4 pb-5 px-3">
-    <a href="{% url 'report-contact' %}" class="btn btn-block btn-green">Registrar contato</a>
+    <a href="{% url 'report-contact' state politician.id %}" class="btn btn-block btn-green">
+      Registrar contato
+    </a>
   </div>
 {% endblock content %}

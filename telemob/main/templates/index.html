@@ -5,10 +5,8 @@
 {% block content %}
   <div class="no-gutters">
     <div class="campaign">
-      <h4 class="text-white">#SALVENATAL: Por um Plano Diretor melhor para nossa cidade</h4>
-      <h5 class="text-white">
-        A proposta da Prefeitura de Natal para revisão de seu Plano Diretor pretende transformar radicalmente nossas vidas. Transformar para pior. 
-      </h5>
+      <h4 class="text-white">{{ campaign.name }}</h4>
+      <h5 class="text-white">{{ campaign.description }}</h5>
 
       <a class="btn btn-purple" href="{% url 'onboarding-part-1' %}">Participar</a>
     </div>
@@ -16,7 +14,7 @@
 
   <div class="card contacts">
     <span class="title">Contatos reportados</span>
-    <span class="total">540</span>
+    <span class="total">{{ contacts }}</span>
   </div>
 
   <div class="card">

@@ -41,7 +41,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'captcha',
     'widget_tweaks',
-    'pwa',
+    # 'pwa',
     'push_redirect',
 
     'telemob.main',
@@ -51,7 +51,7 @@ MIDDLEWARE = (
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'telemob.main.middleware.TurbolinksMiddleware',
-    'push_redirect.middleware.Http2ServerPushRedirectMiddleware',
+    # 'push_redirect.middleware.Http2ServerPushRedirectMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',

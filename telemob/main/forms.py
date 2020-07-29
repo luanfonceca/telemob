@@ -2,8 +2,14 @@
 
 from django import forms
 from captcha.fields import ReCaptchaField
+from localflavor.br.forms import BRStateChoiceField
 
 from .models import Contact
+
+
+class StateForm(forms.Form):
+    state = BRStateChoiceField()
+
 
 class ContactForm(forms.ModelForm):
 

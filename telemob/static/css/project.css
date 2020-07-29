@@ -151,7 +151,6 @@ h6 {
 
 .list-group-item .title.stretched-link {
   color: #1F2041;
-  text-decoration: none;
 }
 
 #onboarding {
@@ -184,6 +183,10 @@ h6 {
   padding: 0.5rem 0.8rem;
   background: linear-gradient(180deg, #6FCF97 0%, #66D2EA 100%);
   border: none !important;
+}
+
+.wizzard li.wizzard-visited:hover img {
+  filter: invert(1);
 }
 
 .badge-contact-wrap {

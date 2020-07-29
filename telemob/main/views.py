@@ -1,73 +1,117 @@
 
 from django.db.models import Count, Sum
-from localflavor.br.br_states import STATE_CHOICES
-from django.shortcuts import get_object_or_404, redirect, render
-from django.contrib import messages
-from django.conf import settings
+from django.views.generic import (
+    FormView, TemplateView, DetailView,
+    CreateView,
+)
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
-from .forms import ContactForm
+from .forms import StateForm
 from .models import Campaign, Politician, Contact
 
 
-def index(request):
-    campaign = get_object_or_404(Campaign, id=1)
-    contacts = Contact.objects.filter(campaign=campaign.pk).count()
+class HomeView(TemplateView):
+    template_name = 'index.html'
 
-    return render(
-        request,
-        'index.html', {
-            'campaign': campaign,
-            'uf_list': STATE_CHOICES,
-            'count_contacts': contacts
-        })
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
 
-
-def politician_list(request, campaign_id, uf=None):
-    campaign = get_object_or_404(Campaign, id=campaign_id)
-    if uf:
-        politician_list = Politician.objects.filter(uf__iexact=uf)
-    else:
-        politician_list = Politician.objects.all()
-
-    politician_list = politician_list.annotate(
-        contacts=Count('contact')).order_by('contacts', 'parliamentary_name')
-    total_contacts = politician_list.aggregate(total=Sum('contacts'))['total']
-
-    return render(
-        request,
-        'politician_list.html', {
-            'politician_list': politician_list,
-            'total_contacts': total_contacts,
-            'campaign': campaign,
-            'uf_list': STATE_CHOICES
-        })
+        campaign = Campaign.objects.first()
+        context.update(
+            campaign=campaign,
+            contacts=campaign.contact_set.count(),
+        )
+        return context
 
 
-def report_contact(request, campaign_id, politician_id):
-    campaign = get_object_or_404(Campaign, id=campaign_id)
-    politician = get_object_or_404(Politician, id=politician_id)
+class ChooseState(FormView):
+    template_name = 'choose-state.html'
+    form_class = StateForm
 
-    contact = Contact(campaign=campaign, politician=politician)
-    form = ContactForm(request.POST or None, instance=contact)
+    def form_valid(self, form):
+        data = form.cleaned_data
+        return HttpResponseRedirect(
+            reverse('choose-politician', args=(data['state'],))
+        )
 
-    if request.POST:
-        if form.is_valid():
-            form.save()
-            msg = ('Seu contato foi registrado! '
-                   'Se tiver tempo, aproveite para contatar outra ou outro '
-                   'parlamentar agora mesmo.')
-            messages.success(request, msg)
-            return redirect('politician_list', campaign_id=campaign.pk, uf=politician.uf)
-        else:
-            msg = ('Alguma coisa deu errado, '
-                   'por favor veja se o formulário esta preenchido corretamente.')
-            messages.error(request, msg)
 
-    return render(
-        request,
-        'contact_add.html', {
-            'form': form,
-            'politician': politician,
-            'campaign': campaign,
-            'telegram_price': settings.TELEGRAM_PRICE,
-        })
+class ChoosePolitician(TemplateView):
+    template_name = 'choose-politician.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        state = kwargs.get('state')
+        if state:
+            politician_list = Politician.objects.filter(uf__iexact=state)
+
+        politician_list = politician_list.annotate(
+            contacts=Count('contact')
+        ).order_by('contacts', 'parliamentary_name')
+        total_contacts = politician_list.aggregate(total=Sum('contacts'))['total']
+
+        context.update(
+            politician_list=politician_list,
+            total_contacts=total_contacts,
+        )
+        return context
+
+
+class ContactPolitician(DetailView):
+    queryset = Politician.objects.annotate(contacts=Count('contact'))
+    pk_url_kwarg = 'politician_id'
+    template_name = 'contact-politician.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(
+            state=self.kwargs.get('state'),
+            campaign=Campaign.objects.first(),
+        )
+        return context
+
+
+class ReportContact(CreateView):
+    model = Contact
+    fields = ['contacted_by', 'result']
+    template_name = 'report-contact.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        state = self.kwargs.get('state')
+        politician_id = self.kwargs.get('politician_id')
+
+        context.update(
+            state=state,
+            politician=Politician.objects.get(pk=politician_id, uf=state),
+        )
+        return context
+
+    def form_valid(self, form):
+        state = self.kwargs.get('state')
+        politician_id = self.kwargs.get('politician_id')
+
+        self.contact = form.save(commit=False)
+        self.contact.campaign = Campaign.objects.first()
+        self.contact.politician = Politician.objects.get(pk=politician_id, uf=state)
+        self.contact.save()
+
+        return HttpResponseRedirect(
+            reverse('report-contact-success', args=(state, politician_id))
+        )
+
+
+class ReportContactSuccess(TemplateView):
+    template_name = 'report-contact-success.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        campaign = Campaign.objects.first()
+        total_contacts = campaign.contact_set.count()
+
+        context.update(
+            total_contacts=total_contacts,
+        )
+        return context

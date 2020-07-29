@@ -19,10 +19,10 @@
 
   <div class="card contacts">
     <span class="title">Contatos reportados</span>
-    <span class="total">540</span>
+    <span class="total">{{ total_contacts }}</span>
 
     <div class="pt-3">
-      <a href="{% url 'choose-politician' %}" class="btn btn-block btn-purple">
+      <a href="{% url 'choose-politician' state %}" class="btn btn-block btn-purple">
         Quero ajudar mais
       </a>
     </div>

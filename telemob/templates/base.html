@@ -1,7 +1,5 @@
 {% load static %}
 
-{% load pwa %}
-
 <!DOCTYPE html>
 <html lang="pt-BR" class="h-100 w-100">
   <head>
@@ -11,7 +9,6 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="shortcut icon" href="{% static 'img/ico.png' %}">
-    {% progressive_web_app_meta %}
 
     <title>{% block title %}Telemob{% endblock title %}</title>
 
@@ -30,14 +27,32 @@
     <![endif]-->
 
     <script data-turbolinks-track="true" src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+    <script defer async data-turbolinks-track="true" src="{% static 'js/jquery-ujs.js' %}"></script>
     <script src="{% static 'js/turbolinks.js' %}"></script>
     <script type="text/javascript">
       (function() {
-        Turbolinks.start()
+        Turbolinks.start();
       });
     </script>
 
-    <script defer async  data-turbolinks-track="true" src="{% static 'js/jquery-ujs.js' %}"></script>
+    // <script data-turbolinks-track="true" type="text/javascript">
+    //   document.addEventListener('turbolinks:load', function() {
+    //     $('form').on('ajax:beforeSend', function(event, xhr, settings) {
+    //       xhr.setRequestHeader('Turbolinks-Referrer', window.location);
+    //     }).on('ajax:success', function(event, data, status, xhr) {
+    //       let location = xhr.getResponseHeader('turbolinks-location');
+
+    //       if (!location) {
+    //         location = window.location.href;
+    //       }
+
+    //       Turbolinks.visit(location, {action: 'restore'});
+    //       Turbolinks.clearCache();
+    //     });
+    //   });
+    // </script>
+    <script type="module" src="{% static 'js/dmc-form.js' %}"></script>
+
     <script defer async data-turbolinks-track="true" src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     <script defer async data-turbolinks-track="true" src="{% static 'js/contact.js' %}"></script>
 

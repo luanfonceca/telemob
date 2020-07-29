@@ -20,6 +20,9 @@ class Argument(models.Model):
     campaign = models.ForeignKey('Campaign', verbose_name='Campanha', on_delete=models.CASCADE)
     text = models.TextField('Texto do argumento')
 
+    def __str__(self):
+        return self.text
+
 
 class Politician(models.Model):
     PARTY_CHOICES = (
@@ -82,6 +85,14 @@ class Politician(models.Model):
     def __str__(self):
         return self.name or self.parliamentary_name
 
+    @property
+    def pretty_phone(self):
+        return f'0-xx-61-{self.tel}'
+
+    @property
+    def pretty_fax(self):
+        return f'0-xx-61-{self.fax}'
+
 
 class Contact(models.Model):
 
@@ -123,7 +134,7 @@ class Contact(models.Model):
     politician = models.ForeignKey(Politician, verbose_name='Político', on_delete=models.CASCADE)
     campaign = models.ForeignKey(Campaign, verbose_name='Campanha', on_delete=models.CASCADE)
     contacted_by = models.CharField(verbose_name='Contato via', choices=CONTACT_CHOICES, max_length=10)
-    result = models.CharField(verbose_name='Resultado do contato', choices=RESULT_CHOICES, max_length=10, blank=True, null=True)
+    result = models.CharField(verbose_name='Resultado do contato', choices=RESULT_CHOICES, max_length=10, null=True)
     date_created = models.DateField('Criado em', auto_now_add=True)
 
     class Meta:
